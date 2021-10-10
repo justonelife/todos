@@ -1,0 +1,10 @@
+<form [formGroup]='registerForm'>
+    <label for='userName'>username</label>
+    <input id='userName' formControlName='username' type='text'>
+    <label for='password'>password</label>
+    <input id='password' formControlName='password' type='password'>
+    <label for='confirmPassword'>confirm password</label>
+    <input id='confirmPassword' formControlName='confirmPassword' type='password'>
+    <span *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').invalid">not match</span>
+    <button (click)='onRegisterClick()'>register</button>
+</form>

@@ -1,0 +1,13 @@
+<div class='login-page'>
+
+    <form [formGroup]='loginForm'>
+        <label for='userName'>username</label>
+        <input id='userName' formControlName='username' type='text'>
+        <label for='password'>password</label>
+        <input id='password' formControlName='password' type='password'>
+        <button (click)='onLoginClick()'>login</button>
+        <a [routerLink]="['/register']">register</a>
+        <button (click)='onTest()'>test token</button>
+    </form>
+    
+</div>
