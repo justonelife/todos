@@ -5,3 +5,22 @@
     border: 0;
     box-sizing: border-box;
 }
+
+.m {
+    &__input {
+        height: 35px;
+        background: #fff;
+        padding: 0 10px;
+        border-radius: 5px;
+        input {
+            height: 100%;
+            width: 100%;
+            background: transparent;
+            color: #1c1c1c;
+            text-align: center;
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

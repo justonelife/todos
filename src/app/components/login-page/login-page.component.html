@@ -1,13 +1,21 @@
 <div class='login-page'>
+    <span class='login-page__layer'></span>
+    <div class='login-page__panel'>
+        <form class='login-page__panel__form m-center' [formGroup]='loginForm'>
+            
+            <div class='m__input'>
+                <input formControlName='username' type='text' placeholder="username">
+            </div>
 
-    <form [formGroup]='loginForm'>
-        <label for='userName'>username</label>
-        <input id='userName' formControlName='username' type='text'>
-        <label for='password'>password</label>
-        <input id='password' formControlName='password' type='password'>
-        <button (click)='onLoginClick()'>login</button>
-        <a [routerLink]="['/register']">register</a>
-        <button (click)='onTest()'>test token</button>
-    </form>
-    
+            <div class='m__input'>
+                <input formControlName='password' type='password' placeholder='password'>
+            </div>
+
+            <div class='login-page__panel__form__buttons'>
+                <button id='register' (click)='redirectRegisterPage()'>register</button>
+                <button id='login' (click)='onLoginClick()'>login</button>
+            </div>
+        </form>
+    </div>
+        
 </div>
