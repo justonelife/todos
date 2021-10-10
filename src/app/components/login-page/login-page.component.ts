@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TodoService } from 'src/app/services/todo.service';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private todoService: TodoService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,8 +42,8 @@ export class LoginPageComponent implements OnInit {
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
-  onTest(): void {
-    this.todoService.getTodos().subscribe(console.log);
+  redirectRegisterPage(): void {
+    this.router.navigate(['/register']);
   }
 
 }
