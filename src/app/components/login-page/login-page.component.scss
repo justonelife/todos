@@ -37,6 +37,7 @@
             
             &__buttons {
                 display: flex;
+                flex-flow: row-reverse;
                 justify-content: space-between;
                 button {
                     color: #fff;

@@ -31,7 +31,10 @@ export class LoginPageComponent implements OnInit {
 
   onLoginClick(): void {
     this.userService.userLogin(this.loginForm.value).subscribe(
-      res => this.storeUser(res),
+      res => {
+        this.storeUser(res);
+        this.router.navigate(['/todos']);
+      },
       err => console.log(err)
     );
   }
