@@ -6,18 +6,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageModule } from './components/login-page/login-page.module';
 import { RegisterPageModule } from './components/register-page/register-page.module';
+import { TodoManagementModule } from './components/todo-management/todo-management.module';
 import { TokenInterceptor } from './interceptors/token-handler.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoginPageModule,
     RegisterPageModule,
-    HttpClientModule
+    HttpClientModule,
+    TodoManagementModule
   ],
   providers: [
     {
