@@ -13,8 +13,8 @@ app.use(express.json());
 
 //@route POST /login
 //@desc authenticate username && password
-app.post('/login', (req, res) => {
-    var message = authenUser(req.body);
+app.post('/login', async (req, res) => {
+    var message = await authenUser(req.body);
     let user = req.body;
     if (message === 'Success') {
         const token = jwt.sign(
@@ -35,7 +35,7 @@ app.post('/login', (req, res) => {
 
 //@route POST /register
 //@desc register new user
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     var result = registerUser(req.body);
     res.json(result);
 });

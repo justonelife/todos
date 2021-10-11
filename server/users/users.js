@@ -1,4 +1,5 @@
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
 
 const getUsersData = () => {
     var dataBuffer = fs.readFileSync('./users/users_data.json');
@@ -18,10 +19,13 @@ const getUserPassword = (name) => {
     return null;
 }
 
-const authenUser = (userInfo) => {
+async function authenUser(userInfo) {
     var databasePassword = getUserPassword(userInfo.username);
     if (!databasePassword) return 'Invalid User';
-    return (userInfo.password === databasePassword) ? 'Success' : 'Incorrect Password';
+    if (await bcrypt.compare(userInfo.password, databasePassword)) {
+        return 'Success';
+    }
+    return 'Incorrect Password';
 }
 
 const getUserBaseName = (name) => {
@@ -30,8 +34,11 @@ const getUserBaseName = (name) => {
     return !!found;
 }
 
-const addUser = (info) => {
+async function addUser(info) {
     var data = getUsersData();
+    var encryptedPassword = await bcrypt.hash(info.password, 10);
+    info.password = encryptedPassword; 
+    console.log(info)
     data.push(info);
     setUsersData(data);
     return info;
