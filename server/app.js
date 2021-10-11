@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const { authenUser, registerUser } = require('./users/users');
+const { addTodo, getTodos } = require('./todos/todos');
 const auth = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -43,7 +44,15 @@ app.post('/register', async (req, res) => {
 //@route GET /todos
 //@desc list all user's todos
 app.get('/todos', auth, (req, res) => {
-    res.status(200).json({ message: 'hello' });
+    var todos = getTodos(req.user.username);
+    res.status(200).json(todos);
+});
+
+//@route POST /add
+//@desc add new todo
+app.post('/add', auth, (req, res) => {
+    var result = addTodo(req.body, req.user.username);
+    res.status(201).json(result);
 });
 
 app.listen(3000, () => console.log(`Server running on PORT: ${PORT}`));

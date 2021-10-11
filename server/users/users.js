@@ -37,8 +37,7 @@ const getUserBaseName = (name) => {
 async function addUser(info) {
     var data = getUsersData();
     var encryptedPassword = await bcrypt.hash(info.password, 10);
-    info.password = encryptedPassword; 
-    console.log(info)
+    info.password = encryptedPassword;
     data.push(info);
     setUsersData(data);
     return info;

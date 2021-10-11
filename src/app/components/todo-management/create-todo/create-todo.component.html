@@ -1,1 +1,5 @@
-<p>create-todo works!</p>
+<form [formGroup]='todoForm'>
+    <input formControlName='title' type='text'>
+    <textarea formControlName='description'></textarea>
+    <button (click)='onCreateTodoClick()'>add</button>
+</form>
