@@ -51,4 +51,8 @@ export class RegisterPageComponent implements OnInit {
     return ({username, password});
   }
 
+  isDisableRegisterButton(): Boolean {
+    return !this.registerForm.valid;
+  }
+
 }

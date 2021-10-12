@@ -1,10 +1,25 @@
-<form [formGroup]='registerForm'>
-    <label for='userName'>username</label>
-    <input id='userName' formControlName='username' type='text'>
-    <label for='password'>password</label>
-    <input id='password' formControlName='password' type='password'>
-    <label for='confirmPassword'>confirm password</label>
-    <input id='confirmPassword' formControlName='confirmPassword' type='password'>
-    <span *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').invalid">not match</span>
-    <button (click)='onRegisterClick()'>register</button>
-</form>
+<div class='register-page'>
+
+    <div class='register-page__panel'>
+        <form class='register-page__panel__form' [formGroup]='registerForm'>
+            
+            <div class='m__input'>
+                <input placeholder='username' formControlName='username' type='text'>
+            </div>
+            <div class='m__input'>
+                <input placeholder='password' formControlName='password' type='password'>
+            </div>
+            <div class='m__input'>
+                <input placeholder='confirm password' formControlName='confirmPassword' type='password'>
+            </div>
+            <span class='message message--error' *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').invalid">confirm password not match password</span>
+            <button class='register-page__panel__form__button' 
+                (click)='onRegisterClick()'
+                [disabled]='isDisableRegisterButton()'>
+                register
+            </button>
+        </form>
+    
+    </div>
+
+</div>
