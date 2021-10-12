@@ -1,27 +1,21 @@
-const fs = require('fs');
+const Todo = require('./models/todo-model');
+const User = require('../users/models/user-model');
 
-const getTodosData = () => {
-    var dataBuffer = fs.readFileSync('./todos/todos_data.json');
-    var dataJSON = dataBuffer.toString();
-    return JSON.parse(dataJSON);
-}
+async function addTodo(todo, ownerName) {
+    var user = await User.findOne({ username: ownerName });
+    todo.ownerId = user._id;
 
-const setTodosData = (data) => {
-    var dataBuffer = JSON.stringify(data);
-    fs.writeFileSync('./todos/todos_data.json', dataBuffer);
-}
-
-const addTodo = (todo, owner) => {
-    var data = getTodosData();
-    todo.owner = owner;
-    data.push(todo);
-    setTodosData(data);
+    const newTodo = new Todo(todo);
+    await newTodo.save();
+    delete todo.ownerId;
     return todo;
 }
 
-const getTodos = (owner) => {
-    var data = getTodosData();
-    return data.filter(item => item.owner === owner);
+async function getTodos(ownerName) {
+    var user = await User.findOne({ username: ownerName });
+    var todos = await Todo.find({ ownerId: user._id }).select('title description');
+    
+    return todos;
 }
 
 module.exports = {
