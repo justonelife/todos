@@ -20,17 +20,21 @@ export class TodoService {
     private httpClient: HttpClient
   ) { }
 
-  getTodos(): Observable<any> {
+  getTodos(): Observable<Todo[]> {
     const url = `${environment.api}/todos`;
     return this.httpClient
-      .get(url, this.headerOptions)
-      .pipe();
+      .get<Todo[]>(url, this.headerOptions)
+      .pipe(
+        map(data => {
+          return data.map((item: any) => new Todo(item));
+        })
+      );
   }
 
   createTodo(data: Todo): Observable<Todo> {
     const url = `${environment.api}/add`;
     return this.httpClient
-      .post(url, data, this.headerOptions)
+      .post<Todo>(url, data, this.headerOptions)
       .pipe(
         map((res: any) => new Todo(res))
       );
