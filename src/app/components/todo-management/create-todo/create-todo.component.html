@@ -1,5 +1,37 @@
-<form [formGroup]='todoForm'>
-    <input formControlName='title' type='text'>
-    <textarea formControlName='description'></textarea>
-    <button (click)='onCreateTodoClick()'>add</button>
-</form>
+<div class='create-todo'>
+
+    <button class='create-todo__button create-todo__new-button'
+        (click)='showPanel()'>
+        <fa-icon [icon]='faPlus'></fa-icon>
+        todo
+    </button>
+
+    <div [ngClass]="{'create-todo__panel': true, 'create-todo__panel--active': isShowPanel}">
+
+        <form [formGroup]='todoForm' class='create-todo__panel__form'>
+            <label class='create-todo__panel__form__label' for='title'>title</label>
+            <div class='m__input'>
+                <input id='title' 
+                    formControlName='title' 
+                    type='text' 
+                    placeholder='title'>
+            </div>
+
+            <label class='create-todo__panel__form__label' for='description'>description</label>
+            <div class='m__textarea'>
+                <textarea id='description' 
+                    formControlName='description' 
+                    placeholder='description'>
+                </textarea>
+            </div>
+
+        </form>
+
+        <div class='create-todo__panel__buttons'>
+            <button class='create-todo__button' (click)='onCreateTodoClick()'>create</button>
+            <button class='create-todo__button' (click)='onCancelClick()'>cancel</button>
+        </div>
+        
+    </div>
+
+</div>
