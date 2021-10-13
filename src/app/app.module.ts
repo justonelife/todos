@@ -8,6 +8,7 @@ import { LoginPageModule } from './components/login-page/login-page.module';
 import { RegisterPageModule } from './components/register-page/register-page.module';
 import { TodoManagementModule } from './components/todo-management/todo-management.module';
 import { TokenInterceptor } from './interceptors/token-handler.interceptor';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TokenInterceptor } from './interceptors/token-handler.interceptor';
     LoginPageModule,
     RegisterPageModule,
     HttpClientModule,
-    TodoManagementModule
+    TodoManagementModule,
+    FontAwesomeModule
   ],
   providers: [
     {
