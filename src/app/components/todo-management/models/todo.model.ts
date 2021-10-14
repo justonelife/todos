@@ -1,10 +1,10 @@
 export class Todo {
     public title: string;
     public description?: string | null | undefined;
-    public completed: boolean;
+    public status: 'defined' | 'in_progress' | 'completed';
     constructor(data: any) {
         this.title = data.title;
         this.description = data.description;
-        this.completed = data.completed;
+        this.status = data.status;
     }
 }
