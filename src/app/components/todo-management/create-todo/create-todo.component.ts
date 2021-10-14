@@ -28,9 +28,9 @@ export class CreateTodoComponent implements OnInit {
 
   initForm(): void {
     this.todoForm = this.formBuilder.group({
-      title: ['', Validators.required],
+      title: ['New todo', Validators.required],
       description: [''],
-      completed: [false]
+      status: ['defined']
     });
   }
 
@@ -39,7 +39,11 @@ export class CreateTodoComponent implements OnInit {
     this.todoService.createTodo(body).pipe(
       switchMap(() => this.todoService.getTodos())
     ).subscribe(
-      res => this.newTodo(res)
+      res => {
+        this.newTodo(res);
+        this.hidePanel();
+        this.clearForm();
+      }
     );
   }
 
@@ -53,7 +57,7 @@ export class CreateTodoComponent implements OnInit {
   }
 
   clearForm(): void {
-    this.todoForm.reset();
+    this.todoForm.reset({ title: 'New todo', status: 'defined' });
   }
 
   showPanel(): void{
