@@ -9,18 +9,35 @@ import { Todo } from './models/todo.model';
 })
 export class TodoManagementComponent implements OnInit {
 
-  public todos: Todo[] = [];
+  public definedTodos: Todo[] = [];
+  public inProgressTodos: Todo[] = [];
+  public completedTodos: Todo[] = [];
 
   constructor(
     private todoService: TodoService
   ) { }
 
   ngOnInit(): void {
-    this.todoService.getTodos().subscribe(res => this.todos = res);
+    this.todoService.getTodos().subscribe(res => this.classifyTodos(res));
   }
 
   updateTodoList(event: Todo[]): void {
-    this.todos = event;
+    this.classifyTodos(event);
+  }
+
+  classifyTodos(todos: Todo[]): void {
+    this.emptyTodoArrays();
+    for (let todo of todos) {
+      if (todo.status === 'defined') this.definedTodos.push(todo);
+      else if (todo.status === 'in_progress') this.inProgressTodos.push(todo);
+      else this.completedTodos.push(todo);
+    }
+  }
+
+  emptyTodoArrays(): void {
+    this.definedTodos.splice(0, this.definedTodos.length);
+    this.inProgressTodos.splice(0, this.inProgressTodos.length);
+    this.completedTodos.splice(0, this.completedTodos.length);
   }
 
 }

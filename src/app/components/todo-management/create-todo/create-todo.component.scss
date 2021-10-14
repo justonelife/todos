@@ -65,7 +65,9 @@
     }
 
     &__new-button {
-        float: right;
+        // float: right;
+        display: block;
+        margin: 0 auto;
         font-weight: bold;
     }
 }

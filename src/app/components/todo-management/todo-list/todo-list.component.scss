@@ -1,8 +1,29 @@
 .todo-list {
-    background-image: url('../../../../assets/image/main-page-bg.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: calc(100vh - 50px);
-    width: 100%;
+    padding: 20px;
+    height: 100%;
+    background: #00000063;
+
+    &__title {
+        color: #fff;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        height: 35px;
+        line-height: 35px;
+        font-size: 17px;
+    }
+
+    &__main {
+        background: transparent;
+        height: calc(100vh - 165px);
+        width: 100%;
+        overflow: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+          
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
 }
