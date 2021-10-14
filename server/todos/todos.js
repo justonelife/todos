@@ -13,7 +13,7 @@ async function addTodo(todo, ownerName) {
 
 async function getTodos(ownerName) {
     var user = await User.findOne({ username: ownerName });
-    var todos = await Todo.find({ ownerId: user._id }).select('title description completed');
+    var todos = await Todo.find({ ownerId: user._id }).select('title description status');
     
     return todos;
 }
