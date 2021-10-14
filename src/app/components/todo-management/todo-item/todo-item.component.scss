@@ -1,0 +1,94 @@
+.todo-item {
+    margin-bottom: 20px;
+    
+    &__main {
+        background: #fff;
+        height: 50px;
+        box-shadow: 0px 4px 7px rgb(0 0 0 / 29%);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__title {
+            color: #636363;
+            font-family: cursive;
+            padding: 0 14px;
+            max-width: 50%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+
+        &__buttons {
+            padding-right: 20px;
+
+            button {
+                color: #636363;
+                height: 30px;
+                width: 30px;
+                background: transparent;
+                border: 1px dashed #636363;
+                margin-left: 2px;
+                transition: all .3s ease;
+
+                &:hover {
+                    background: #636363;
+                    color: #fff;
+                    border: 1px dashed #fff;
+                }
+            }
+        }
+    }
+
+    &__detail {
+        background: #fff;
+        width: 100%;
+        padding: 20px;
+        border-top: 2px dashed #7d7d7d;
+        display: none;
+
+        &--active {
+            display: block;
+        }
+
+        &__description {
+            font-family: sans-serif;
+            color: #636363;
+
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+
+            button {
+                height: 30px;
+                width: 70px;
+                text-transform: capitalize;
+                color: #636363;
+                background: transparent;
+                cursor: pointer;
+                border: 1px dashed #636363;
+                transition: all .3s ease;
+
+                &:first-child {
+                    margin-right: 10px;
+                }
+
+                &:hover {
+                    background: #636363;
+                    color: #fff;
+                    border: 1px dashed #fff;
+                }
+            }
+        }
+    }
+}

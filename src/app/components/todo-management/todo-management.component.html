@@ -1,2 +1,11 @@
-<app-create-todo (newTodoEvent)='updateTodoList($event)'></app-create-todo>
-<app-todo-list [todos]='todos'></app-todo-list>
+<div class='todo-management'>
+    
+    <app-create-todo (newTodoEvent)='updateTodoList($event)'></app-create-todo>
+    
+    <div class='todo-management__playground'>
+        <app-todo-list title='defined' [todos]='definedTodos'></app-todo-list>
+        <app-todo-list title='in progress' [todos]='inProgressTodos'></app-todo-list>
+        <app-todo-list title='completed' [todos]='completedTodos'></app-todo-list>
+    </div>
+
+</div>

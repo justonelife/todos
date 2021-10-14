@@ -9,6 +9,7 @@ import { Todo } from '../models/todo.model';
 export class TodoListComponent implements OnInit {
 
   @Input() todos?: Todo[];
+  @Input() title: String = '';
 
   constructor() { }
 

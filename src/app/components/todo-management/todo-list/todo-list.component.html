@@ -1,3 +1,13 @@
 <div class='todo-list'>
-    <p *ngFor='let item of todos'>{{ item.title }} - {{ item.description }} - {{ item.status }}</p>
+        
+    <div class='todo-list__main'>
+
+        <app-todo-item *ngFor='let todo of todos'
+            [todo]='todo'>
+        </app-todo-item>
+
+    </div>
+
+    <h2 class='todo-list__title'>{{ title }}</h2>
+
 </div>

@@ -1,0 +1,38 @@
+<!-- <p *ngIf='todo'>{{todo.id}} - {{ todo.title }} - {{ todo.description }} - {{ todo.status }}</p> -->
+<div *ngIf='todo'
+    class='todo-item'>
+
+    <div class='todo-item__main'
+        (click)='toggleDetail()'>
+
+        <h3 class='todo-item__main__title'>{{ todo.title }}</h3>
+
+        <div class='todo-item__main__buttons'>
+            <button *ngIf="todo.status !== 'defined'" 
+                (click)='onDemoteClick($event)'>
+                <fa-icon [icon]='faCaretLeft'></fa-icon>
+            </button>
+            <button (click)='onDeleteClick($event)'>
+                <fa-icon [icon]='faEraser'></fa-icon>
+            </button>
+            <button *ngIf="todo.status !== 'completed'" 
+                (click)='onPromoteClick($event)'>
+                <fa-icon [icon]='faCaretRight'></fa-icon>
+            </button>
+        </div>
+    </div>
+
+    <div [ngClass]="{'todo-item__detail': true, 'todo-item__detail--active': isShowDetail}">
+
+        <div class='todo-item__detail__description'>{{ todo.description }}</div>
+
+        <div class='todo-item__detail__buttons'>
+            <button>
+                <fa-icon [icon]='faTimes'></fa-icon>
+            </button>
+            <button>
+                <fa-icon [icon]='faCheck'></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>
