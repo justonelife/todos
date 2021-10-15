@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { TodoService } from 'src/app/services/todo.service';
 import { Todo } from './models/todo.model';
 
@@ -18,11 +19,16 @@ export class TodoManagementComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todoService.getTodos().subscribe(res => this.classifyTodos(res));
+    // this.todoService.getTodos().subscribe(res => this.classifyTodos(res));
+    this.todoService.currentFetchTodo.pipe(
+      switchMap(() => this.todoService.getTodos())
+    ).subscribe(
+      res => this.classifyTodos(res)
+    )
   }
 
   updateTodoList(event: Todo[]): void {
-    this.classifyTodos(event);
+    this.definedTodos = event;
   }
 
   classifyTodos(todos: Todo[]): void {

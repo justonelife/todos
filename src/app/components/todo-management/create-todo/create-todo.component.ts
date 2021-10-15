@@ -37,7 +37,7 @@ export class CreateTodoComponent implements OnInit {
   onCreateTodoClick(): void {
     let body = this.todoForm.value;
     this.todoService.createTodo(body).pipe(
-      switchMap(() => this.todoService.getTodos())
+      switchMap(() => this.todoService.getTodos('defined'))
     ).subscribe(
       res => {
         this.newTodo(res);

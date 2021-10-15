@@ -11,14 +11,30 @@ async function addTodo(todo, ownerName) {
     return todo;
 }
 
-async function getTodos(ownerName) {
+async function getTodos(ownerName, status) {
     var user = await User.findOne({ username: ownerName });
-    var todos = await Todo.find({ ownerId: user._id }).select('title description status');
+    var todos = undefined;
+    if (status) {
+        todos = await Todo.find({ ownerId: user._id, status: status }).select('title description status');
+    } else {
+        todos = await Todo.find({ ownerId: user._id }).select('title description status');
+    }
     
     return todos;
 }
 
+async function changeTodoStatus(id, status) {
+    var res = await Todo.updateOne(
+        { _id: id }, 
+        { $set: { status: status } 
+    });
+    // res.n Number of documents matched
+    // res.nModified Number of documents modefined
+    return res.nModified;
+}
+
 module.exports = {
     addTodo,
-    getTodos
+    getTodos,
+    changeTodoStatus
 }
