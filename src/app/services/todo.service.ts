@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Todo } from '../components/todo-management/models/todo.model';
 import { map } from 'rxjs/operators';
@@ -16,12 +16,21 @@ export class TodoService {
     })
   };
 
+  //TRICK ---- LEARN TO REPLACE
+  //notify to re-fetch todos
+  private fetchTodo = new BehaviorSubject(false);
+  currentFetchTodo = this.fetchTodo.asObservable();
+
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  getTodos(): Observable<Todo[]> {
-    const url = `${environment.api}/todos`;
+  getTodos(status?: string): Observable<Todo[]> {
+
+    const url = status 
+      ? `${environment.api}/todos?status=${status}`
+      : `${environment.api}/todos`;
+      
     return this.httpClient
       .get<Todo[]>(url, this.headerOptions)
       .pipe(
@@ -38,5 +47,17 @@ export class TodoService {
       .pipe(
         map((res: any) => new Todo(res))
       );
+  }
+
+  changeTodoStatus(data: { id: string, status: string}): Observable<any> {
+    const url = `${environment.api}/todo/status`;
+    return this.httpClient
+      .put(url, data, this.headerOptions)
+      .pipe();
+  }
+
+  toggleFetchTodo(): void {
+    let value = this.fetchTodo.value;
+    this.fetchTodo.next(!value);
   }
 }
