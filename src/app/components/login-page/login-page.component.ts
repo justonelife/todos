@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { UserInfo } from './models/user-info.model';
 
 @Component({
   selector: 'app-login-page',
@@ -30,13 +31,20 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLoginClick(): void {
-    this.userService.userLogin(this.loginForm.value).subscribe(
+    let body = this.getBody(this.loginForm.value);
+    this.userService.userLogin(body).subscribe(
       res => {
         this.storeUser(res);
         this.router.navigate(['/todos']);
       },
       err => console.log(err)
     );
+  }
+
+  getBody(info: UserInfo): UserInfo {
+    let { username, password } = info;
+    username = username.trim();
+    return ({ username, password });
   }
 
   storeUser(user: { [key: string]: string}): void {
