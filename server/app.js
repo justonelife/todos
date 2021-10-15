@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const { authenUser, registerUser } = require('./users/users');
-const { addTodo, getTodos } = require('./todos/todos');
+const { addTodo, getTodos, changeTodoStatus } = require('./todos/todos');
 const auth = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -53,7 +53,8 @@ app.post('/register', async (req, res) => {
 //@route GET /todos
 //@desc list all user's todos
 app.get('/todos', auth, async (req, res) => {
-    var todos = await getTodos(req.user.username);
+    var todoStatus = req.query.status;
+    var todos = await getTodos(req.user.username, todoStatus);
     res.status(200).json(todos);
 });
 
@@ -62,6 +63,14 @@ app.get('/todos', auth, async (req, res) => {
 app.post('/add', auth, async (req, res) => {
     var result = await addTodo(req.body, req.user.username);
     res.status(201).json(result);
+});
+
+//@route PUT /todo/status
+//@desc promote or demote todo (set status)
+app.put('/todo/status', auth, async(req, res) => {
+    var modified = changeTodoStatus(req.body.id, req.body.status);
+    if (modified) res.status(200).json({ message: 'Update Success' });
+    else res.status(404).json({ message: 'Update fail' }); 
 });
 
 app.listen(3000, () => console.log(`Server running on PORT: ${PORT}`));
