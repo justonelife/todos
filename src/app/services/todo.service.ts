@@ -63,6 +63,13 @@ export class TodoService {
       .pipe();
   }
 
+  updateTodo(data: Todo): Observable<any> {
+    const url = `${environment.api}/todo/update`;
+    return this.httpClient
+      .put(url, data, this.headerOptions)
+      .pipe();
+  }
+
   toggleFetchTodo(): void {
     let value = this.fetchTodo.value;
     this.fetchTodo.next(!value);

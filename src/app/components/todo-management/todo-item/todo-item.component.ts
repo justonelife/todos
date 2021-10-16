@@ -16,9 +16,11 @@ import { TodoService } from 'src/app/services/todo.service';
 export class TodoItemComponent implements OnInit {
 
   @Input() todo?: Todo;
+  private lastTodo?: Todo;
   public isShowDetail: Boolean = false;
   private todoStatusLifeCycle: string[] = ['defined', 'in_progress', 'completed'];
-  
+  public isEditting: Boolean = false;
+
   public faEraser = faEraser;
   public faEdit = faEdit;
   public faCheck = faCheck;
@@ -37,8 +39,11 @@ export class TodoItemComponent implements OnInit {
     this.isShowDetail = !this.isShowDetail;
   }
 
-  onDemoteClick(e: Event): void {
-    e.stopPropagation();
+  showDetail(): void {
+    this.isShowDetail = true;
+  }
+
+  onDemoteClick(): void {
     if (this.todo) {
       let status = this.getTodoPreviousState(this.todo.status);
       let id = this.todo.id || ''; // by pass model,  sure always have id
@@ -48,8 +53,7 @@ export class TodoItemComponent implements OnInit {
     }
   }
 
-  onDeleteClick(e: Event): void {
-    e.stopPropagation();
+  onDeleteClick(): void {
     if (this.todo) {
       let id = this.todo.id || '';
       this.todoService.deleteTodo(id).subscribe(
@@ -58,12 +62,17 @@ export class TodoItemComponent implements OnInit {
     }
   }
 
-  onEditClick(e: Event): void {
-    e.stopPropagation();
+  onEditClick(): void {
+    this.saveLastTodo();
+    this.isEditting = true;
+    this.showDetail();
   }
 
-  onPromoteClick(e: Event): void {
-    e.stopPropagation();
+  saveLastTodo(): void {
+    this.lastTodo = JSON.parse(JSON.stringify(this.todo));
+  }
+
+  onPromoteClick(): void {
     if (this.todo) {
       let status = this.getTodoNextState(this.todo.status);
       let id = this.todo.id || ''; // by pass model,  sure always have id
@@ -81,6 +90,19 @@ export class TodoItemComponent implements OnInit {
   getTodoPreviousState(status: string): string {
     let statusIndex = this.todoStatusLifeCycle.indexOf(status);
     return this.todoStatusLifeCycle[statusIndex - 1];
+  }
+
+  onCancelEditClick(): void {
+    this.todo = JSON.parse(JSON.stringify(this.lastTodo));
+    this.isEditting = false;
+  }
+
+  onSaveEditClick(): void {
+    if (this.todo) {
+      this.todoService.updateTodo(this.todo).subscribe(
+        () => this.isEditting = false
+      )
+    }
   }
 
 }
