@@ -38,9 +38,21 @@ async function deleteTodo(id) {
     return document;
 }
 
+async function updateTodo(data) {
+    var document = await Todo.updateOne(
+        { _id: data.id },
+        {
+            $set: { title: data.title, description: data.description }
+        }
+    );
+
+    return document;
+}
+
 module.exports = {
     addTodo,
     getTodos,
     changeTodoStatus,
-    deleteTodo
+    deleteTodo,
+    updateTodo
 }

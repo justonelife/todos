@@ -4,7 +4,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const { authenUser, registerUser } = require('./users/users');
-const { addTodo, getTodos, changeTodoStatus, deleteTodo } = require('./todos/todos');
+const { addTodo, 
+    getTodos, 
+    changeTodoStatus, 
+    deleteTodo,
+    updateTodo } = require('./todos/todos');
 const auth = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -81,6 +85,16 @@ app.delete('/todo/delete/:id', auth, async (req, res) => {
         res.status(202).json({ message: 'Deleted' });
     } else {
         res.status(404).json({ message: 'Delete failed '})
+    }
+});
+
+//@route PUT /todo/update
+app.put('/todo/update', auth, async (req, res) => {
+    var document = updateTodo(req.body);
+    if (document) {
+        res.status(200).json({ message: 'Updated' });
+    } else {
+        res.status(404).json({ message: 'Update failed' });
     }
 });
 
