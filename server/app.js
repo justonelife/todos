@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const { authenUser, registerUser } = require('./users/users');
-const { addTodo, getTodos, changeTodoStatus } = require('./todos/todos');
+const { addTodo, getTodos, changeTodoStatus, deleteTodo } = require('./todos/todos');
 const auth = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -67,10 +67,21 @@ app.post('/add', auth, async (req, res) => {
 
 //@route PUT /todo/status
 //@desc promote or demote todo (set status)
-app.put('/todo/status', auth, async(req, res) => {
+app.put('/todo/status', auth, async (req, res) => {
     var modified = changeTodoStatus(req.body.id, req.body.status);
-    if (modified) res.status(200).json({ message: 'Update Success' });
-    else res.status(404).json({ message: 'Update fail' }); 
+    if (modified) res.status(200).json({ message: 'Updated' });
+    else res.status(404).json({ message: 'Update failed' }); 
+});
+
+//@route DELETE /todo/delete/:id
+//@desc delete todo
+app.delete('/todo/delete/:id', auth, async (req, res) => {
+    var document = deleteTodo(req.params.id);
+    if (document) {
+        res.status(202).json({ message: 'Deleted' });
+    } else {
+        res.status(404).json({ message: 'Delete failed '})
+    }
 });
 
 app.listen(3000, () => console.log(`Server running on PORT: ${PORT}`));
