@@ -33,8 +33,14 @@ async function changeTodoStatus(id, status) {
     return res.nModified;
 }
 
+async function deleteTodo(id) {
+    var document = await Todo.findByIdAndDelete(id);
+    return document;
+}
+
 module.exports = {
     addTodo,
     getTodos,
-    changeTodoStatus
+    changeTodoStatus,
+    deleteTodo
 }

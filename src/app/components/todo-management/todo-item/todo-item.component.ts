@@ -50,6 +50,12 @@ export class TodoItemComponent implements OnInit {
 
   onDeleteClick(e: Event): void {
     e.stopPropagation();
+    if (this.todo) {
+      let id = this.todo.id || '';
+      this.todoService.deleteTodo(id).subscribe(
+        () => this.todoService.toggleFetchTodo()
+      );
+    }
   }
 
   onEditClick(e: Event): void {

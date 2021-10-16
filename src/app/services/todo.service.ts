@@ -56,6 +56,13 @@ export class TodoService {
       .pipe();
   }
 
+  deleteTodo(id: string): Observable<any> {
+    const url = `${environment.api}/todo/delete/${id}`;
+    return this.httpClient
+      .delete(url, this.headerOptions)
+      .pipe();
+  }
+
   toggleFetchTodo(): void {
     let value = this.fetchTodo.value;
     this.fetchTodo.next(!value);
