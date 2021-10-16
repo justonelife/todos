@@ -5,21 +5,30 @@
     <div class='todo-item__main'
         (click)='toggleDetail()'>
 
-        <h3 class='todo-item__main__title'>{{ todo.title }}</h3>
+        <h3 *ngIf='!isEditting; else inputTitle' 
+            class='todo-item__main__title'>
+            {{ todo.title }}
+        </h3>
+        <ng-template #inputTitle>
+            <div class='m__input'
+                appClickStopPropagation>
+                <input type='text' [(ngModel)]='todo.title'>
+            </div>
+        </ng-template>
 
         <div class='todo-item__main__buttons'>
             <button *ngIf="todo.status !== 'defined'" 
-                (click)='onDemoteClick($event)'>
+                (click)='onDemoteClick()' appClickStopPropagation>
                 <fa-icon [icon]='faCaretLeft'></fa-icon>
             </button>
-            <button (click)='onDeleteClick($event)'>
+            <button (click)='onDeleteClick()' appClickStopPropagation>
                 <fa-icon [icon]='faEraser'></fa-icon>
             </button>
-            <button (click)='onEditClick($event)'>
+            <button (click)='onEditClick()' appClickStopPropagation>
                 <fa-icon [icon]='faEdit'></fa-icon>
             </button>
             <button *ngIf="todo.status !== 'completed'" 
-                (click)='onPromoteClick($event)'>
+                (click)='onPromoteClick()' appClickStopPropagation>
                 <fa-icon [icon]='faCaretRight'></fa-icon>
             </button>
         </div>
@@ -27,13 +36,22 @@
 
     <div [ngClass]="{'todo-item__detail': true, 'todo-item__detail--active': isShowDetail}">
 
-        <div class='todo-item__detail__description'>{{ todo.description }}</div>
+        <div *ngIf='!isEditting; else inputDescription'
+            class='todo-item__detail__description'>
+            {{ todo.description }}
+        </div>
+        <ng-template #inputDescription>
+            <div class='m__textarea'>
+                <textarea [(ngModel)]='todo.description'></textarea>
+            </div>
+        </ng-template>
 
-        <div class='todo-item__detail__buttons'>
-            <button>
+        <div *ngIf='isEditting'
+            class='todo-item__detail__buttons'>
+            <button (click)='onCancelEditClick()'>
                 <fa-icon [icon]='faTimes'></fa-icon>
             </button>
-            <button>
+            <button (click)='onSaveEditClick()'>
                 <fa-icon [icon]='faCheck'></fa-icon>
             </button>
         </div>

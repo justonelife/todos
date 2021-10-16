@@ -13,7 +13,7 @@
         &__title {
             color: #636363;
             font-family: cursive;
-            padding: 0 14px;
+            padding: 0 20px;
             max-width: 50%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -41,6 +41,11 @@
                     border: 1px dashed #fff;
                 }
             }
+        }
+
+        .m__input {
+            margin-left: 20px;
+            border: 1px dashed #636363;
         }
     }
 
@@ -89,6 +94,10 @@
                     border: 1px dashed #fff;
                 }
             }
+        }
+
+        .m__textarea {
+            border: 1px dashed #636363;
         }
     }
 }

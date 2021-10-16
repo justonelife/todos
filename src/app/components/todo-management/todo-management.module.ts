@@ -6,6 +6,7 @@ import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 
 
@@ -20,7 +21,8 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    DirectivesModule
   ],
   exports: [
     TodoManagementComponent
