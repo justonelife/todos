@@ -1,0 +1,18 @@
+<div class='user-button-wrapper'>
+
+    <button class='user-button' (click)='toggleShowNavigate()'>
+        <fa-icon [icon]='faUser'></fa-icon>
+    </button>
+
+    <div *ngIf='isShowNavigate' class='user-navigate'>
+        <ul>
+            <li>
+                <button (click)='onLogoutClick()'>
+                    <fa-icon [icon]='faSignOutAlt'></fa-icon>
+                    log out
+                </button>
+            </li>
+        </ul>
+    </div>
+
+</div>

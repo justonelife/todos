@@ -66,8 +66,13 @@
 
     &__new-button {
         // float: right;
-        display: block;
-        margin: 0 auto;
         font-weight: bold;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    app-user-button {
+        float: right;
     }
 }

@@ -6,6 +6,8 @@
         todo
     </button>
 
+    <app-user-button></app-user-button>
+
     <div [ngClass]="{'create-todo__panel': true, 'create-todo__panel--active': isShowPanel}">
 
         <form [formGroup]='todoForm' class='create-todo__panel__form'>
